@@ -18,7 +18,7 @@
       <form class="new-form" accept-charset="UTF-8" data-remote="true">
         <div class="row">
           <div class="col">
-            <input type="text" class="form-control" placeholder="名前" autofocus required v-model="name">
+            <input type="text" class="form-control" placeholder="名前" autofocus required v-model="name" @keyup.enter="addStudent">
           </div>
           <div class="col">
             <select class="form-select" required v-model="course">
@@ -41,14 +41,16 @@
               <th>名前</th>
               <th>コース</th>
               <th>受講期</th>
+              <th>ボタン</th>
             </tr>
           </thead>
           <tbody>
             <tr v-for="(student, index) in students" :key="index">
-              <td>{{ index + 1 }}</td>
+              <td>{{ student.id }}</td>
               <td>{{ student.name }}</td>
               <td>{{ student.course }}</td>
               <td>{{ student.acceptancePeriod }}</td>
+              <td><button class="btn btn-outline-danger" @click="removeStudent(student.id)">削除</button></td>
             </tr>
           </tbody>
         </table>
