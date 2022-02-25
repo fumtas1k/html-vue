@@ -34,7 +34,7 @@
             <input type="month" class="form-control" required v-model="acceptancePeriod">
           </div>
           <div class="col">
-            <button class="btn btn-primary" @click="addStudent" remote>入力した生徒を追加する</button>
+            <button class="btn btn-primary" @click="addStudent" remote :disabled="activeSubmit">入力した生徒を追加する</button>
           </div>
         </div>
       </form>

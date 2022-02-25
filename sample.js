@@ -25,15 +25,13 @@ let vm = new Vue({
   },
   methods: {
     addStudent: function(){
-      if(this.name != "" && this.course != "" && this.acceptancePeriod != ""){
-        this.defaultLastId += 1;
-        this.students.push({
-          id: this.defaultLastId,
-          name: this.name,
-          course: this.course,
-          acceptancePeriod: this.changeDate(this.acceptancePeriod)});
-          this.dataClear();
-      }
+      this.defaultLastId += 1;
+      this.students.push({
+        id: this.defaultLastId,
+        name: this.name,
+        course: this.course,
+        acceptancePeriod: this.changeDate(this.acceptancePeriod)});
+        this.dataClear();
     },
     changeDate: function(acceptancePeriod){
       let year_month = /(\d{4})-(\d{2})/.exec(acceptancePeriod);
@@ -53,5 +51,10 @@ let vm = new Vue({
       this.removeFlag = true;
       setTimeout(this.changeFlag, 1000);
     },
+  },
+  computed: {
+    activeSubmit: function(){
+      return !(this.name != "" && this.course != "" && this.acceptancePeriod != "");
+    }
   },
 })
