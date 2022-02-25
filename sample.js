@@ -1,23 +1,35 @@
 new Vue({
-  // このelにHTMLのidを指定することで、そのidのDOMでVue.jsのインスタンスがインポートされる
-  el: '#app',
-  // dataは、定義されたVue.jsのインスタンスが持つ属性（値）
+  el: "#app",
   data: {
-    name: 'A山B郎',
-    course: 'Webエンジニアコース',
-    acceptancePeriod: '2019年01月期',
-    defaultLastId: 3,
+    name: "",
+    course: "",
+    acceptancePeriod: "",
     students: [
-      { id: 1, name: '野呂浩良', course: '機械学習コース', acceptancePeriod: '2019年01月期' },
-      { id: 2, name: '富永修司', course: 'Webエンジニアコース', acceptancePeriod: '2017年11月期' },
-      { id: 3, name: '斉藤一起', course: 'Webエンジニアコース', acceptancePeriod: '2017年11月期' }
-    ]
+      { name: '野呂浩良', course: '機械学習コース', acceptancePeriod: '2019年01月期' },
+      { name: '富永修司', course: 'Webエンジニアコース', acceptancePeriod: '2017年11月期' },
+      { name: '斉藤一起', course: 'Webエンジニアコース', acceptancePeriod: '2017年11月期' },
+    ],
+    courseOptions: [
+      { value: "", text: "--コースを選択--" },
+      { value: "Webエンジニアコースフルタイム", text: "Webエンジニアコースフルタイム" },
+      { value: "Webエンジニアウィークリーサポートコース", text: "Webエンジニアウィークリーサポートコース" },
+      { value: "Webエンジニアステップアップコース(java)", text: "Webエンジニアステップアップコース" },
+      { value: "Webエンジニアステップアップコース(Ruby)", text: "Webエンジニアステップアップコース(Ruby)" },
+      { value: "Webエンジニアステップアップコース(PHP)", text: "Webエンジニアステップアップコース(PHP)" },
+      { value: "Webエンジニアステップアップコース(Python)", text: "Webエンジニアステップアップコース(Python)" },
+      { value: "機械学習エンジニアコース", text: "機械学習エンジニアコース" },
+    ],
   },
-  // methodsに、Vue.jsのインスタンスに使用させたいメソッドを記載する
   methods: {
-    addStudent: function() {
-        // この function() { } の中にaddStudentメソッド
-        // （入力欄に入力された値と、ID値（最後に登録されたID値+1の値）が新たに出現する機能）の処理を書く
-    }
-  }
+    addStudent: function(){
+      if(this.name != "" && this.course != "" && this.acceptancePeriod != ""){
+        let year_month = /(\d{4})-(\d{2})/.exec(this.acceptancePeriod);
+        this.students.push({name: this.name, course: this.course, acceptancePeriod: `${year_month[1]}年${year_month[2]}月期`})
+        this.name = ""
+        this.course = ""
+        this.acceptancePeriod = ""
+        return false
+      }
+    },
+  },
 })

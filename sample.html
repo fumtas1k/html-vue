@@ -1,35 +1,60 @@
-<html>
-    <head>
-        <link rel="stylesheet" href="sample.css">
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
-        <!-- 下記の記述でVue.jsをインポートしている -->
-        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    </head>
-    <body>
-
-        <div id="app">
-            <!-- v-model="name"で、Vue.jsで設定したdateとHTMLのinput要素が同期する -->
-            名前：<input v-model="name">
-            コース：<input v-model="course">
-            受講期：<input v-model="acceptancePeriod">
-            <br>
-            <!-- button v-on:click="addStudent"で、buttonがclickされた時に起動するメソッドを選択する -->
-            <button v-on:click="addStudent">入力した生徒を追加する</button>
-
-            <ul>
-                <!-- v-for="student in students" で、配列studentsを一つ一つ切り出して変数studentに代入している -->
-                <!-- v-bind:key="student.id"は、切り出された各要素の一意性を確保するために使う -->
-                <li v-for="student in students" v-bind:key="student.id">
-                    <!-- {{ }} のなかに書いた記述で、Vue.jsのデータの式展開が行える -->
-                    ID {{student.id}} /
-                    名前 {{student.name}} /
-                    コース {{student.course}} /
-                    受講期 {{student.acceptancePeriod}}
-                </li>
-            </ul>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel="stylesheet" href="sample.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <title></title>
+</head>
+<body>
+  <header>
+    <span>Diver</span>
+  </header>
+  <main>
+    <div class="container" id="app">
+      <form class="new-form" accept-charset="UTF-8" data-remote="true">
+        <div class="row">
+          <div class="col">
+            <input type="text" class="form-control" placeholder="名前" autofocus required v-model="name">
+          </div>
+          <div class="col">
+            <select class="form-select" required v-model="course">
+              <option :value="option.value" v-for="(option, index) in courseOptions" :key="index">{{ option.text }}</option>
+            </select>
+          </div>
+          <div class="col">
+            <input type="month" class="form-control" required v-model="acceptancePeriod">
+          </div>
+          <div class="col">
+            <button class="btn btn-primary" @click="addStudent" remote>入力した生徒を追加する</button>
+          </div>
         </div>
-
-        <script src="sample.js"></script>
-    </body>
+      </form>
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>名前</th>
+              <th>コース</th>
+              <th>受講期</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="(student, index) in students" :key="index">
+              <td>{{ index + 1 }}</td>
+              <td>{{ student.name }}</td>
+              <td>{{ student.course }}</td>
+              <td>{{ student.acceptancePeriod }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+  <script src="sample.js"></script>
+</body>
 </html>
