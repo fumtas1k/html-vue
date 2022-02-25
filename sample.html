@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
+  <title>Diver</title>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <link rel="stylesheet" href="sample.css">
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <title></title>
 </head>
 <body>
   <header>
@@ -15,10 +15,15 @@
   </header>
   <main>
     <div class="container" id="app">
+      <transition name="fade">
+        <div class="alert alert-danger" v-show="removeFlag">
+          <span>{{ removeName }}を削除しました!</span>
+        </div>
+    </transition>
       <form class="new-form" accept-charset="UTF-8" data-remote="true">
         <div class="row">
           <div class="col">
-            <input type="text" class="form-control" placeholder="名前" autofocus required v-model="name" @keyup.enter="addStudent">
+            <input type="text" class="form-control" placeholder="名前" autocomplete="name" autofocus required v-model="name" @keyup.enter="addStudent">
           </div>
           <div class="col">
             <select class="form-select" required v-model="course">
@@ -45,12 +50,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="(student, index) in students" :key="index">
+            <tr v-for="(student, index) in students" :key="student.id">
               <td>{{ student.id }}</td>
               <td>{{ student.name }}</td>
               <td>{{ student.course }}</td>
               <td>{{ student.acceptancePeriod }}</td>
-              <td><button class="btn btn-outline-danger" @click="removeStudent(student.id)">削除</button></td>
+              <td><button class="btn btn-outline-danger" @click="removeStudent(index)">削除</button></td>
             </tr>
           </tbody>
         </table>

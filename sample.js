@@ -1,6 +1,8 @@
 let vm = new Vue({
   el: "#app",
   data: {
+    removeFlag: false,
+    removeName: "",
     name: "",
     course: "",
     acceptancePeriod: "",
@@ -24,20 +26,32 @@ let vm = new Vue({
   methods: {
     addStudent: function(){
       if(this.name != "" && this.course != "" && this.acceptancePeriod != ""){
-        let year_month = /(\d{4})-(\d{2})/.exec(this.acceptancePeriod);
         this.defaultLastId += 1;
         this.students.push({
           id: this.defaultLastId,
           name: this.name,
           course: this.course,
-          acceptancePeriod: `${year_month[1]}年${year_month[2]}月期`});
-        this.name = "";
-        this.course = "";
-        this.acceptancePeriod = "";
+          acceptancePeriod: this.changeDate(this.acceptancePeriod)});
+          this.dataClear();
       }
     },
-    removeStudent: function(id){
-      this.students.splice(id-1, 1);
+    changeDate: function(acceptancePeriod){
+      let year_month = /(\d{4})-(\d{2})/.exec(acceptancePeriod);
+      return `${year_month[1]}年${year_month[2]}月期`
+    },
+    dataClear: function(){
+      this.name = "";
+      this.course = "";
+      this.acceptancePeriod = "";
+    },
+    changeFlag: function(){
+      this.removeFlag = !this.removeFlag;
+    },
+    removeStudent: function(index){
+      this.removeName = this.students[index].name;
+      this.students.splice(index, 1);
+      this.removeFlag = true;
+      setTimeout(this.changeFlag, 1000);
     },
   },
 })
