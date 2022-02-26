@@ -43,14 +43,14 @@ const app = {
       this.course = "";
       this.acceptancePeriod = "";
     },
-    changeFlag() {
+    changeRemoveFlag() {
       this.removeFlag = !this.removeFlag;
     },
     removeStudent(index) {
       this.removeName = this.students[index].name;
       this.students.splice(index, 1);
       this.removeFlag = true;
-      setTimeout(this.changeFlag, 1000);
+      setTimeout(this.changeRemoveFlag, 1000);
     },
   },
   computed: {

@@ -15,11 +15,13 @@
   </header>
   <main>
     <div class="container" id="app">
-      <transition name="fade">
-        <div class="alert alert-danger" v-show="removeFlag">
-          <span>{{ removeName }}を削除しました!</span>
-        </div>
-    </transition>
+      <div class="alert-container">
+        <transition name="fade">
+          <div class="alert alert-danger" v-show="removeFlag">
+            <span>{{ removeName }}を削除しました!</span>
+          </div>
+        </transition>
+      </div>
       <form class="new-form" accept-charset="UTF-8" data-remote="true">
         <div class="row">
           <div class="col">
@@ -39,7 +41,7 @@
         </div>
       </form>
       <div class="table-container">
-        <table>
+        <table class="table">
           <thead>
             <tr>
               <th>ID</th>
